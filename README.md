@@ -47,7 +47,7 @@ requires the partner's full raw log, which never fits, so mutual acceptance brea
 | Path | Contents |
 | --- | --- |
 | `src/` | Selection, annotation build and measure scripts (`build_dm_format.py` is the central build) |
-| `src/labeller/` | Episode labeller, LLM evaluation, run metrics, regret and reciprocity, report builder |
+| `src/labeller/` | Episode labeller, LLM evaluation, run metrics, regret and reciprocity, report builder; `label_runs.py` labels whole runs with an LLM judge |
 | `src/modal/` | Modal apps that run the Qwen3-32B labeller on H100 GPUs |
 | `annotations/` | Hand-annotation JSON, including the C3-rule overrides |
 | `results/selection/` | Run and episode selections for annotation |
@@ -76,6 +76,19 @@ uv run --with pyarrow --with pandas python src/labeller/gap_lift.py
 
 The LLM labeller prompts are regenerated with `src/labeller/build_prompts.py --all` and run on Modal with
 `modal run src/modal/labeller.py`.
+
+Whole runs can also be annotated by an LLM judge (Claude through the Anthropic API, or an open model served with
+vLLM on Modal) with `src/labeller/label_runs.py`. It prompts with the code book and two hand-labelled runs, returns a
+category, pattern, evidence quote and confidence per episode, and validates against the hand labels:
+
+```bash
+python src/labeller/label_runs.py prepare runs.csv data --hand results/annotation/combined_dm_episodes.csv
+python src/labeller/label_runs.py label --url https://<you>--collusion-labeller-serve.modal.run --model gpt-oss
+python src/labeller/label_runs.py collect data --work work_gpt-oss --out labels
+python src/labeller/label_runs.py validate labels/ai_episodes.csv results/annotation/combined_dm_episodes.csv
+```
+
+The commands and Modal setup are in the script's docstring. Its code book still uses C2s and has no C5a.
 
 ## References
 

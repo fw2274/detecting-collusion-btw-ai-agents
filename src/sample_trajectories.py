@@ -5,7 +5,7 @@ Outputs:
   annotation_episodes.csv   one row per (trajectory, key episode, agent): blank coordination/execution columns,
                             a pre-filled outcome suggestion, and auto_* fields from the episodes/agents configs
 
-Usage:  uv run --with pyarrow python sample_trajectories.py [--seed 20261024] [--cache .hf_cache]
+Usage:  uv run --with pyarrow python src/sample_trajectories.py [--seed 20261024] [--cache .hf_cache]
 """
 import argparse
 import csv
@@ -153,7 +153,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--seed", type=int, default=20261024)
     ap.add_argument("--cache", type=Path, default=Path(".hf_cache"))
-    ap.add_argument("--out", type=Path, default=Path("."))
+    ap.add_argument("--out", type=Path, default=Path("results/selection"))
     args = ap.parse_args()
 
     rng = random.Random(args.seed)
@@ -222,7 +222,7 @@ def main():
                 })
 
     args.out.mkdir(parents=True, exist_ok=True)
-    for name, rows in (("annotation_sample.csv", traj_rows), ("annotation_episodes.csv", ep_rows)):
+    for name, rows in (("results/selection/annotation_sample.csv", traj_rows), ("results/selection/annotation_episodes.csv", ep_rows)):
         with open(args.out / name, "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=list(rows[0]))
             w.writeheader()

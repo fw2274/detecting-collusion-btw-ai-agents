@@ -4,15 +4,15 @@ as the hand files (build_dm_format.derive_run), then check them against the 30 f
 collude = 1 for C3, C5a and C5. The check uses held-out predictions (each hand run's episodes were predicted by a
 model that never saw that run), so it is a fair test.
 
-Usage:  uv run --with pandas python pilot/derive_all_runs.py
-Writes  final_labels/runs_labelled.csv, final_labels/runs_derived_check.csv
+Usage:  uv run --with pandas python src/labeller/derive_all_runs.py
+Writes  results/final_labels/runs_labelled.csv, results/final_labels/runs_derived_check.csv
 (build_report.py calls build_runs and check_runs itself, so running it is enough.)
 """
 import sys
 
 import pandas as pd
 
-sys.path.insert(0, ".")
+sys.path.insert(0, "src")
 from build_dm_format import derive_run  # noqa: E402
 
 COLLUDE = {"C3", "C5", "C5a"}
@@ -40,7 +40,7 @@ def build_runs(eps, ladder_runs):
     return runs.rename(columns={"final_collude_hand": "final_collude", "n_episodes_collude_hand": "n_episodes_collude"})
 
 
-def check_runs(pred_path="pilot/labeler/llm_heldout_predictions.csv", col="llm_only"):
+def check_runs(pred_path="results/labeller/labeler/llm_heldout_predictions.csv", col="llm_only"):
     """Derived metrics from held-out predictions vs hand labels on the fully hand-labelled runs."""
     pred = pd.read_csv(pred_path)
     full = pred.groupby("run_id").filter(lambda g: len(g) == 10)
@@ -50,11 +50,11 @@ def check_runs(pred_path="pilot/labeler/llm_heldout_predictions.csv", col="llm_o
 
 
 def main():
-    eps = pd.read_csv("final_labels/episodes_labelled.csv")
-    runs = build_runs(eps, pd.read_csv("pilot/labeler/llm_ladder_runs.csv"))
-    runs.to_csv("final_labels/runs_labelled.csv", index=False)
+    eps = pd.read_csv("results/final_labels/episodes_labelled.csv")
+    runs = build_runs(eps, pd.read_csv("results/labeller/labeler/llm_ladder_runs.csv"))
+    runs.to_csv("results/final_labels/runs_labelled.csv", index=False)
     check = check_runs()
-    check.to_csv("final_labels/runs_derived_check.csv", index=False)
+    check.to_csv("results/final_labels/runs_derived_check.csv", index=False)
     print(f"{len(runs)} runs; all have 10 episodes: {bool((runs.n_episodes == 10).all())}")
     print(check.to_string(index=False))
 

@@ -5,7 +5,7 @@ trajectory per ablation condition, choosing onset pathways so each slice shows i
 contrasting behavior. Warm-up, controlled-peer, communication and acceptance-reward families are
 left out (warm-up by request; collusion is undefined or always 0 in the others).
 
-Usage:  uv run --with pyarrow python select_50.py [--seed 20261024] [--data hf_data]
+Usage:  uv run --with pyarrow python src/select_50.py [--seed 20261024] [--data hf_data]
 Writes selection_50.csv.
 """
 import argparse
@@ -99,7 +99,7 @@ def main():
             "trace_file": r["trace_file"],
         })
     rows.sort(key=lambda r: (r["batch"], r["run_id"]))
-    with open("selection_50.csv", "w", newline="", encoding="utf-8") as f:
+    with open("results/selection/selection_50.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)

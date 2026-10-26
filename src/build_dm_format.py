@@ -8,7 +8,7 @@ Outputs (any annotator export listed in EXPORTS is merged in):
   batch1_dm_episodes.csv, batch1_dm_runs.csv        batch 1 in DM's columns (+ merged metrics)
   combined_dm_episodes.csv, combined_dm_runs.csv    batch 1 + DM batch, derived columns recomputed for both
 
-Usage:  uv run python build_dm_format.py [dm_dir]
+Usage:  uv run python src/build_dm_format.py [dm_dir]
 Definitions of every derived column are in README_combined_annotations.md.
 """
 import csv
@@ -118,10 +118,10 @@ def derive_run(seq, cats):
 
 
 def build_batch1():
-    sel = {r["run_id"]: r for r in csv.DictReader(open("selection_50.csv", encoding="utf-8")) if r["batch"] == "1"}
-    e50 = {(r["run_id"], int(r["episode"])): r for r in csv.DictReader(open("episodes_50.csv", encoding="utf-8-sig"))}
-    t50 = {r["run_id"]: r for r in csv.DictReader(open("trajectories_50.csv", encoding="utf-8-sig"))}
-    cases = {(r["run_id"], int(r["episode"])): r for r in csv.DictReader(open("batch1_cases_episodes.csv", encoding="utf-8-sig"))}
+    sel = {r["run_id"]: r for r in csv.DictReader(open("results/selection/selection_50.csv", encoding="utf-8")) if r["batch"] == "1"}
+    e50 = {(r["run_id"], int(r["episode"])): r for r in csv.DictReader(open("results/selection/episodes_50.csv", encoding="utf-8-sig"))}
+    t50 = {r["run_id"]: r for r in csv.DictReader(open("results/selection/trajectories_50.csv", encoding="utf-8-sig"))}
+    cases = {(r["run_id"], int(r["episode"])): r for r in csv.DictReader(open("results/annotation/batch1_cases_episodes.csv", encoding="utf-8-sig"))}
     hand = json.load(open("annotations/b1_cases.json", encoding="utf-8"))
     import pyarrow.parquet as pq
     quotes = {(r["run_id"], r["evaluation_episode"]): r["first_side_quote"]
@@ -272,8 +272,8 @@ def main():
     dm_dir = Path(sys.argv[1] if len(sys.argv) > 1 else Path.home() / "Downloads")
     all_eps, all_runs = build_batch1()
     finish(all_eps, all_runs)
-    write("batch1_dm_episodes.csv", all_eps, EP_COLS)
-    write("batch1_dm_runs.csv", all_runs, RUN_COLS)
+    write("results/annotation/batch1_dm_episodes.csv", all_eps, EP_COLS)
+    write("results/annotation/batch1_dm_runs.csv", all_runs, RUN_COLS)
     for ep_file, run_file, batch, who in EXPORTS:
         if not (dm_dir / ep_file).exists():
             print("missing", ep_file)
@@ -284,8 +284,8 @@ def main():
         all_runs += runs
     all_eps.sort(key=lambda e: (int(e["batch"]), e["run_id"], int(e["evaluation_episode"])))
     all_runs.sort(key=lambda r: (int(r["batch"]), r["run_id"]))
-    write("combined_dm_episodes.csv", all_eps, EP_COLS)
-    write("combined_dm_runs.csv", all_runs, RUN_COLS)
+    write("results/annotation/combined_dm_episodes.csv", all_eps, EP_COLS)
+    write("results/annotation/combined_dm_runs.csv", all_runs, RUN_COLS)
     for r in all_runs:
         print(f"b{r['batch']} {r['run_id'][-42:]:42} {r['episode_category_sequence']:32} I={r['intensity']} "
               f"on={r['onset_episode']} gaps={r['gaps_pct']} re={r['reentry']} end={r['ended_early']} | {r['overview_group']}")

@@ -4,9 +4,9 @@ Default setup: Qwen/Qwen3-32B-FP8 on one H100 (80 GB). FP8 weights are ~33 GB, w
 large KV cache. The few-shot prefix is shared by every prompt, so vLLM's prefix caching computes it once.
 Thinking is disabled, decoding is greedy, and output is constrained to the JSON schema below.
 
-Run:   modal run modal/labeller.py --infile pilot/prompts.jsonl --outfile pilot/outputs_qwen3-32b.jsonl
-Other: modal run modal/labeller.py --model Qwen/Qwen3-8B --gpu L40S --outfile pilot/outputs_qwen3-8b.jsonl
-Full:  modal run modal/labeller.py --infile pilot/prompts_all.jsonl --outfile pilot/outputs_all_qwen3-32b.jsonl --shards 4
+Run:   modal run src/modal/labeller.py --infile results/labeller/prompts.jsonl --outfile results/labeller/outputs_qwen3-32b.jsonl
+Other: modal run src/modal/labeller.py --model Qwen/Qwen3-8B --gpu L40S --outfile results/labeller/outputs_qwen3-8b.jsonl
+Full:  modal run src/modal/labeller.py --infile results/labeller/prompts_all.jsonl --outfile results/labeller/outputs_all_qwen3-32b.jsonl --shards 4
        (--shards N splits the prompts across N containers that run in parallel, one GPU each)
 No web endpoint is exposed; the container exits when the batch is done.
 """
@@ -56,7 +56,7 @@ def label(prompts: list[dict], model: str = MODEL) -> dict:
 
 
 @app.local_entrypoint()
-def main(infile: str = "pilot/prompts.jsonl", outfile: str = "pilot/outputs.jsonl", model: str = MODEL, gpu: str = GPU,
+def main(infile: str = "results/labeller/prompts.jsonl", outfile: str = "results/labeller/outputs.jsonl", model: str = MODEL, gpu: str = GPU,
          shards: int = 1):
     prompts = [json.loads(line) for line in open(infile, encoding="utf-8")]
     fn = label if gpu == GPU else label.with_options(gpu=gpu)

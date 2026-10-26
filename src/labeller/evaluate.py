@@ -6,8 +6,8 @@
 3. Distillation: train TF-IDF + logistic regression on the LLM's pilot labels and test it on the hand labels,
    next to the same model trained on the hand labels (run-grouped 5-fold) as the baseline.
 
-Usage:  uv run --with pyarrow --with scikit-learn python pilot/evaluate.py pilot/outputs_qwen3-32b.jsonl
-Writes  pilot/labels_<tag>.csv and pilot/metrics_<tag>.json
+Usage:  uv run --with pyarrow --with scikit-learn python src/labeller/evaluate.py results/labeller/outputs_qwen3-32b.jsonl
+Writes  results/labeller/labels_<tag>.csv and results/labeller/metrics_<tag>.json
 """
 import csv
 import json
@@ -16,7 +16,7 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-sys.path.insert(0, ".")
+sys.path.insert(0, "src")
 from build_dm_format import chat  # noqa: E402
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -59,7 +59,7 @@ def tfidf_lr():
 def main():
     out_path = Path(sys.argv[1])
     tag = out_path.stem.replace("outputs_", "")
-    prompts = {json.loads(l)["id"]: json.loads(l) for l in open("pilot/prompts.jsonl", encoding="utf-8")}
+    prompts = {json.loads(l)["id"]: json.loads(l) for l in open("results/labeller/prompts.jsonl", encoding="utf-8")}
     rows = []
     for line in open(out_path, encoding="utf-8"):
         o = json.loads(line)
@@ -68,7 +68,7 @@ def main():
         lab, ev = parse(o["raw"])
         rows.append({"set": s, "run_id": rid, "ep": int(ep), "family": rid.split("__")[0], "llm": lab, "evidence": ev,
                      "hand": p.get("hand", ""), "annotator": p.get("annotator", "")})
-    with open(f"pilot/labels_{tag}.csv", "w", newline="", encoding="utf-8-sig") as f:
+    with open(f"results/labeller/labels_{tag}.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
@@ -121,7 +121,7 @@ def main():
     meta = out_path.with_name(out_path.stem + "_meta.json")
     if meta.exists():
         m["run"] = json.load(open(meta))
-    json.dump(m, open(f"pilot/metrics_{tag}.json", "w"), indent=1)
+    json.dump(m, open(f"results/labeller/metrics_{tag}.json", "w"), indent=1)
     print(json.dumps(m, indent=1))
 
 

@@ -5,9 +5,9 @@ hf_data/
 # Cloned third-party repos (Colosseum, Terrarium)
 repos/
 
-# Regenerable LLM prompts (pilot/build_prompts.py); prompts_all.jsonl is ~95 MB
-pilot/prompts.jsonl
-pilot/prompts_all.jsonl
+# Regenerable LLM prompts (src/labeller/build_prompts.py); prompts_all.jsonl is ~95 MB
+results/labeller/prompts.jsonl
+results/labeller/prompts_all.jsonl
 
 # Python and tool caches
 __pycache__/

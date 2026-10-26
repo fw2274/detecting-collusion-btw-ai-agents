@@ -1,13 +1,13 @@
 """Build the classifier-labelling report (HTML) and the final labelled CSVs from the training outputs.
 
-Inputs (made by pilot/train_labeler.py, pilot/evaluate.py and pilot/summarise_all.py):
-  pilot/labeler/{,llm_,llm_llmtrain_}heldout.json, pilot/labeler/llm_heldout_predictions.csv,
-  pilot/labeler/llm_all_episodes_predicted.csv, pilot/labeler/llm_ladder_runs.csv,
-  pilot/metrics_qwen3-32b.json, pilot/all_metrics_qwen3-32b.json
+Inputs (made by results/labeller/train_labeler.py, results/labeller/evaluate.py and results/labeller/summarise_all.py):
+  results/labeller/labeler/{,llm_,llm_llmtrain_}heldout.json, results/labeller/labeler/llm_heldout_predictions.csv,
+  results/labeller/labeler/llm_all_episodes_predicted.csv, results/labeller/labeler/llm_ladder_runs.csv,
+  results/labeller/metrics_qwen3-32b.json, results/labeller/all_metrics_qwen3-32b.json
 Outputs:
-  final_labels/episodes_labelled.csv, final_labels/runs_labelled.csv, reports/classifier_labeling.html
+  results/final_labels/episodes_labelled.csv, results/final_labels/runs_labelled.csv, reports/classifier_labeling.html
 
-Usage:  uv run --with pandas python pilot/build_report.py
+Usage:  uv run --with pandas python src/labeller/build_report.py
 """
 import html
 import json
@@ -18,10 +18,10 @@ import sys
 
 import pandas as pd
 
-sys.path.insert(0, "pilot")
+sys.path.insert(0, "src/labeller")
 from derive_all_runs import build_runs, check_runs  # noqa: E402
 
-L = "pilot/labeler"
+L = "results/labeller/labeler"
 FAMILY = {"main": "Main", "cross_model": "Cross-model", "feedback": "Feedback", "memory_length": "Memory length",
           "memory_scope": "Memory scope", "reward_scope": "Reward scope", "reward_type": "Reward type", "warmup": "Warm-up"}
 ORDER = ["C1", "C2", "C2s", "C3", "C5a", "C5", "C4"]
@@ -72,21 +72,21 @@ def main():
     hand = j(f"{L}/heldout.json")
     feat = j(f"{L}/llm_heldout.json")
     trn = j(f"{L}/llm_llmtrain_heldout.json")
-    pilot = j("pilot/metrics_qwen3-32b.json")
-    full = j("pilot/all_metrics_qwen3-32b.json")
+    pilot = j("results/labeller/metrics_qwen3-32b.json")
+    full = j("results/labeller/all_metrics_qwen3-32b.json")
     pred = pd.read_csv(f"{L}/llm_heldout_predictions.csv")
     eps = pd.read_csv(f"{L}/llm_all_episodes_predicted.csv")
     runs = pd.read_csv(f"{L}/llm_ladder_runs.csv")
     best = feat["used"]
 
-    os.makedirs("final_labels", exist_ok=True)
+    os.makedirs("results/final_labels", exist_ok=True)
     eps["collude"] = eps.category.isin(["C3", "C5", "C5a"]).astype(int)
     eps = eps.rename(columns={"llm": "llm_label"})
-    eps.to_csv("final_labels/episodes_labelled.csv", index=False)
+    eps.to_csv("results/final_labels/episodes_labelled.csv", index=False)
     runs = build_runs(eps, runs)
-    runs.to_csv("final_labels/runs_labelled.csv", index=False)
+    runs.to_csv("results/final_labels/runs_labelled.csv", index=False)
     check = check_runs()
-    check.to_csv("final_labels/runs_derived_check.csv", index=False)
+    check.to_csv("results/final_labels/runs_derived_check.csv", index=False)
 
     # evaluation rows: (display name, what it is, scores)
     ev = [("Dataset fields only", "Verdicts and the agreement judge; no chat reading", feat["baseline"]),
@@ -202,8 +202,8 @@ def main():
         rej_kap_hand=f2(hand["model_c3rule"]["reject_branch_kappa"]),
     )
     os.makedirs("reports", exist_ok=True)
-    open("reports/classifier_labeling.html", "w", encoding="utf-8").write(page)
-    print("wrote reports/classifier_labeling.html, final_labels/episodes_labelled.csv, final_labels/runs_labelled.csv")
+    open("results/reports/classifier_labeling.html", "w", encoding="utf-8").write(page)
+    print("wrote results/reports/classifier_labeling.html, results/final_labels/episodes_labelled.csv, results/final_labels/runs_labelled.csv")
     print("best:", best, feat[best])
 
 

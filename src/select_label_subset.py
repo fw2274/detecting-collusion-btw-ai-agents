@@ -6,7 +6,7 @@ Parts:
   subtaskA      60 both-reject episodes, one per run, spread over families, half with a log-swap/plan cue
   subtaskB_ack  15 episodes where both accept, one agent announces, and the other replies with an acknowledgement word
 
-Usage:  uv run --with pyarrow python select_label_subset.py   -> label_subset.csv (blank hand columns to fill)
+Usage:  uv run --with pyarrow python src/select_label_subset.py   -> label_subset.csv (blank hand columns to fill)
 """
 import csv
 import glob
@@ -31,8 +31,8 @@ A_PER_FAMILY = {"main": 12, "cross_model": 9, "feedback": 7, "memory_length": 7,
 
 
 def used_runs():
-    used = {r["run_id"] for r in csv.DictReader(open("combined_dm_runs.csv", encoding="utf-8-sig"))}
-    used |= {r["run_id"] for r in csv.DictReader(open("selection_failed.csv", encoding="utf-8"))}
+    used = {r["run_id"] for r in csv.DictReader(open("results/annotation/combined_dm_runs.csv", encoding="utf-8-sig"))}
+    used |= {r["run_id"] for r in csv.DictReader(open("results/selection/selection_failed.csv", encoding="utf-8"))}
     used |= {k.split("|")[0] for k in json.load(open("annotations/subtaskB_labels.json", encoding="utf-8")) if "|" in k}
     return used
 
@@ -118,7 +118,7 @@ def main():
                      "execution_label": int(bool(e["collusion"])),
                      "both_accept": int(e["alice_verdict"] == e["bob_verdict"] == "accept")})
     cols = ["selection_purpose", "selection_cue", "family"] + EP_COLS
-    with open("label_subset.csv", "w", newline="", encoding="utf-8-sig") as f:
+    with open("results/selection/label_subset.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
         w.writeheader()
         w.writerows(rows)
@@ -136,14 +136,14 @@ def shrink_subtask_a(per_family=3, cue_share=2):
     """Smaller subtask-A set when there is no time for the full subset: from label_subset.csv's subtask-A rows,
     take `per_family` episodes per family (`cue_share` with a plan cue, the rest without), keeping file order.
     Writes label_subset_A_small.csv."""
-    rows = [r for r in csv.DictReader(open("label_subset.csv", encoding="utf-8-sig")) if r["selection_purpose"] == "subtaskA"]
+    rows = [r for r in csv.DictReader(open("results/selection/label_subset.csv", encoding="utf-8-sig")) if r["selection_purpose"] == "subtaskA"]
     out, cols = [], None
     for fam in sorted({r["family"] for r in rows}):
         fr = [r for r in rows if r["family"] == fam]
         cue = [r for r in fr if r["selection_cue"] == "plan_cue"][:cue_share]
         rest = [r for r in fr if r["selection_cue"] == "no_cue"][:per_family - len(cue)]
         out += cue + rest
-    with open("label_subset_A_small.csv", "w", newline="", encoding="utf-8-sig") as f:
+    with open("results/selection/label_subset_A_small.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(out)

@@ -4,7 +4,7 @@ Failed = both-accept in >= 70% of evaluation episodes, but not in the final epis
 Contrast = reward_scope__gemini-3-7-flash__separate runs: N that collude at high intensity
 through the end, and N that never mutually accept.
 
-Usage:  uv run --with pyarrow --with huggingface_hub python select_failed.py [--contrast 3] [--batch 6]
+Usage:  uv run --with pyarrow --with huggingface_hub python src/select_failed.py [--contrast 3] [--batch 6]
 Writes selection_failed.csv and downloads any missing traces into hf_data/.
 """
 import argparse
@@ -58,7 +58,7 @@ def main():
                      "onset_pathway": r["onset_pathway"], "onset_evaluation_episode": r["onset_evaluation_episode"],
                      "converged_collusion": r["converged_collusion"], "trace_file": r["trace_file"],
                      "selection_reason": why, "both_accept_sequence": "".join(map(str, seqs[rid]))})
-    with open("selection_failed.csv", "w", newline="", encoding="utf-8") as f:
+    with open("results/selection/selection_failed.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)

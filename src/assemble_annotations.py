@@ -1,6 +1,6 @@
 """Merge hand annotations (annotations/*.json) with dataset labels into two CSVs.
 
-Usage:  uv run --with pyarrow python assemble_annotations.py [selection.csv] [tag]
+Usage:  uv run --with pyarrow python src/assemble_annotations.py [selection.csv] [tag]
   defaults: selection_50.csv, tag 50
   -> trajectories_{tag}.csv  one row per run: summary, final outcome, onset/pathway
   -> episodes_{tag}.csv      one row per episode: collude, behavior pattern, judge labels
@@ -21,7 +21,7 @@ def b(x):
 
 
 def main():
-    selection = sys.argv[1] if len(sys.argv) > 1 else "selection_50.csv"
+    selection = sys.argv[1] if len(sys.argv) > 1 else "results/selection/selection_50.csv"
     tag = sys.argv[2] if len(sys.argv) > 2 else "50"
     sel = list(csv.DictReader(open(selection, encoding="utf-8")))
     notes = {}
@@ -78,7 +78,7 @@ def main():
             "n_wrong_work_accepted": sum(r["wrong_work_accepted"] for r in eps if r["run_id"] == rid),
         })
 
-    for name, rows in ((f"trajectories_{tag}.csv", traj), (f"episodes_{tag}.csv", eps)):
+    for name, rows in ((f"results/selection/trajectories_{tag}.csv", traj), (f"results/selection/episodes_{tag}.csv", eps)):
         with open(name, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.DictWriter(f, fieldnames=list(rows[0]))
             w.writeheader()

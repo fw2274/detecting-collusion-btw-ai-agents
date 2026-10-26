@@ -3,8 +3,8 @@
 - Checks the labels against every hand label they overlap (same episodes as the eval set, plus the few-shot ones).
 - C1 share by family and by condition, and C1 counts per run.
 
-Usage:  uv run --with scikit-learn python pilot/summarise_all.py pilot/outputs_all_qwen3-32b.jsonl
-Writes  pilot/all_labels_<tag>.csv, pilot/all_runs_<tag>.csv, pilot/all_metrics_<tag>.json
+Usage:  uv run --with scikit-learn python src/labeller/summarise_all.py results/labeller/outputs_all_qwen3-32b.jsonl
+Writes  results/labeller/all_labels_<tag>.csv, results/labeller/all_runs_<tag>.csv, results/labeller/all_metrics_<tag>.json
 """
 import csv
 import json
@@ -14,16 +14,16 @@ from pathlib import Path
 
 from sklearn.metrics import accuracy_score, cohen_kappa_score
 
-sys.path.insert(0, "pilot")
+sys.path.insert(0, "src/labeller")
 from evaluate import parse  # noqa: E402
 
 
 def main():
     out_path = Path(sys.argv[1])
     tag = out_path.stem.replace("outputs_all_", "")
-    fam = {json.loads(l)["id"]: json.loads(l)["family"] for l in open("pilot/prompts_all.jsonl", encoding="utf-8")}
+    fam = {json.loads(l)["id"]: json.loads(l)["family"] for l in open("results/labeller/prompts_all.jsonl", encoding="utf-8")}
     hand = {}
-    for f in ("combined_dm_episodes.csv", "label_subset_A_small_labelled.csv"):
+    for f in ("results/annotation/combined_dm_episodes.csv", "results/annotation/label_subset_A_small_labelled.csv"):
         for e in csv.DictReader(open(f, encoding="utf-8-sig")):
             if e["alice_verdict_on_bob"] == e["bob_verdict_on_alice"] == "reject":
                 hand[(e["run_id"], int(e["evaluation_episode"]))] = "C1" if e["episode_category"].startswith("C1") else "C2"
@@ -36,7 +36,7 @@ def main():
         rows.append({"run_id": rid, "ep": int(ep), "family": fam[o["id"]], "llm": lab, "evidence": ev,
                      "hand": hand.get((rid, int(ep)), "")})
     rows.sort(key=lambda r: (r["run_id"], r["ep"]))
-    with open(f"pilot/all_labels_{tag}.csv", "w", newline="", encoding="utf-8-sig") as f:
+    with open(f"results/labeller/all_labels_{tag}.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
@@ -54,7 +54,7 @@ def main():
     for rid in runs:
         runs[rid]["condition_id"] = rid.rsplit("__", 1)[0]
         runs[rid]["family"] = rid.split("__")[0]
-    with open(f"pilot/all_runs_{tag}.csv", "w", newline="", encoding="utf-8-sig") as f:
+    with open(f"results/labeller/all_runs_{tag}.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=["run_id", "family", "condition_id", "n_both_reject", "n_C1"])
         w.writeheader()
         w.writerows({"run_id": k} | v for k, v in sorted(runs.items()))
@@ -75,7 +75,7 @@ def main():
     meta = out_path.with_name(out_path.stem + "_meta.json")
     if meta.exists():
         m["run"] = json.load(open(meta))
-    json.dump(m, open(f"pilot/all_metrics_{tag}.json", "w"), indent=1)
+    json.dump(m, open(f"results/labeller/all_metrics_{tag}.json", "w"), indent=1)
     print(json.dumps(m, indent=1))
 
 

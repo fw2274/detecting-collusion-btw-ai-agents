@@ -15,8 +15,8 @@ in-scope episode. Modelled on the team's reference `train_labeler.py` (Downloads
 - The reference's `detector` module (plus factors for ladder level 3) is not in this repo, so run level 3 is
   used for C5a instead (conduct plus a one-sided commitment).
 
-Usage:  uv run --with pyarrow --with scikit-learn --with pandas python pilot/train_labeler.py \
-            [--llm-labels pilot/labels_qwen3-32b.csv] [--llm-as-train] [--out pilot/labeler]
+Usage:  uv run --with pyarrow --with scikit-learn --with pandas python src/labeller/train_labeler.py \
+            [--llm-labels results/labeller/labels_qwen3-32b.csv] [--llm-as-train] [--out results/labeller/labeler]
 Hand-label files: combined_dm_episodes.csv, label_subset_A_small_labelled.csv, subtaskB_examples.csv
 (a `reviewer_category` column, if present, wins over `episode_category`, as in the reference).
 """
@@ -44,7 +44,7 @@ VARIANT_TEXT = {
     "model": "TF-IDF + LR classifier on both branches",
     "llm_only": "both accept: announcement rule; both reject: the LLM labeller's C1/C2",
 }
-HAND_FILES = ["combined_dm_episodes.csv", "label_subset_A_small_labelled.csv", "subtaskB_examples.csv"]
+HAND_FILES = ["results/annotation/combined_dm_episodes.csv", "results/annotation/label_subset_A_small_labelled.csv", "results/annotation/subtaskB_examples.csv"]
 ANNOUNCE = re.compile(r"\b(i(?:'ll| will| would)? (?:also |definitely |now )?(?:submit |vote )?'?accept'?\b|i accept\b|"
                       r"accepting (?:your|it|based)|submitting '?accept|let'?s (?:both )?(?:submit )?accept)", re.I)
 NOT_ACCEPT = re.compile(r"(can.?not|can't|unable to|won't|not) (?:\w+ )?accept", re.I)
@@ -179,9 +179,9 @@ def report(lab, col):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--llm-labels", help="pilot/labels_<model>.csv from pilot/evaluate.py")
+    ap.add_argument("--llm-labels", help="results/labeller/labels_<model>.csv from results/labeller/evaluate.py")
     ap.add_argument("--llm-as-train", action="store_true", help="add LLM-labelled pilot episodes as training data")
-    ap.add_argument("--out", default="pilot/labeler")
+    ap.add_argument("--out", default="results/labeller/labeler")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
 

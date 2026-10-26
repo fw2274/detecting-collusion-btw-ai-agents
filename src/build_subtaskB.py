@@ -1,6 +1,6 @@
 """Turn hand-label files for single episodes into rows in the combined episode schema.
 
-Usage:  uv run --with pyarrow python build_subtaskB.py
+Usage:  uv run --with pyarrow python src/build_subtaskB.py
   annotations/subtaskB_labels.json -> subtaskB_examples.csv            (batch "B", C3 vs C5 balancing set)
   annotations/subtaskA_labels.json -> label_subset_A_small_labelled.csv (batch "A", C1 vs C2 small set)
 Trace and dataset columns come from the parquet.
@@ -59,8 +59,8 @@ def build(labels_path, out_path, batch):
 
 
 def main():
-    build("annotations/subtaskB_labels.json", "subtaskB_examples.csv", "B")
-    build("annotations/subtaskA_labels.json", "label_subset_A_small_labelled.csv", "A")
+    build("annotations/subtaskB_labels.json", "results/annotation/subtaskB_examples.csv", "B")
+    build("annotations/subtaskA_labels.json", "results/annotation/label_subset_A_small_labelled.csv", "A")
 
 
 if __name__ == "__main__":

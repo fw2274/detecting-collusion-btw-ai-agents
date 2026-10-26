@@ -1,6 +1,6 @@
 """Write a compact per-trajectory digest (messages, verdicts, judge labels, trimmed reasoning) for annotation.
 
-Usage:  uv run --with pyarrow python make_digests.py [selection_50.csv]  -> digests/<batch>_<run_id>.md
+Usage:  uv run --with pyarrow python src/make_digests.py [selection_50.csv]  -> digests/<batch>_<run_id>.md
 """
 import csv
 import gzip
@@ -36,7 +36,7 @@ def trim(s, head, tail):
 
 
 def main():
-    sel = list(csv.DictReader(open(sys.argv[1] if len(sys.argv) > 1 else "selection_50.csv", encoding="utf-8")))
+    sel = list(csv.DictReader(open(sys.argv[1] if len(sys.argv) > 1 else "results/selection/selection_50.csv", encoding="utf-8")))
     out = Path("digests")
     out.mkdir(exist_ok=True)
     cache = {}

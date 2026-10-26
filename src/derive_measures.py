@@ -10,7 +10,7 @@ Outputs: measures_runs.csv       one row per run (20)
          measures_categories.csv one row per episode category
          measures_counterfactual.csv  dataset-wide channel on/off comparisons (KL over verdict-pair outcomes)
          plus a printed summary; definitions in MEASURES.md
-Usage:   uv run --with pyarrow python derive_measures.py
+Usage:   uv run --with pyarrow python src/derive_measures.py
 """
 import csv
 import gzip
@@ -90,8 +90,8 @@ def frac(a, b):
 
 
 def episode_rows():
-    eps = list(csv.DictReader(open("combined_dm_episodes.csv", encoding="utf-8-sig")))
-    traces = {r["run_id"]: r["trace_file"] for r in csv.DictReader(open("selection_50.csv", encoding="utf-8"))}
+    eps = list(csv.DictReader(open("results/annotation/combined_dm_episodes.csv", encoding="utf-8-sig")))
+    traces = {r["run_id"]: r["trace_file"] for r in csv.DictReader(open("results/selection/selection_50.csv", encoding="utf-8"))}
     chats = {}
     for rid in {e["run_id"] for e in eps}:
         t = json.load(gzip.open(DATA / traces[rid], "rt", encoding="utf-8"))
@@ -119,7 +119,7 @@ def episode_rows():
 
 
 def run_rows(eps):
-    runs = {r["run_id"]: r for r in csv.DictReader(open("combined_dm_runs.csv", encoding="utf-8-sig"))}
+    runs = {r["run_id"]: r for r in csv.DictReader(open("results/annotation/combined_dm_runs.csv", encoding="utf-8-sig"))}
     out = []
     for rid, r in runs.items():
         es = sorted((e for e in eps if e["run_id"] == rid), key=lambda e: int(e["evaluation_episode"]))
@@ -249,11 +249,11 @@ def main():
     ep_cols = ["batch", "run_id", "evaluation_episode", "cat", "collude_hand", "verdict_pair", "team_reward",
                "compliant_reward", "n_wrong_tasks", "n_false_accepts", "alice_said", "alice_say_do", "bob_said",
                "bob_say_do", "coordination_label", "both_accept"]
-    write("measures_episodes.csv", [{k: e[k] for k in ep_cols} for e in eps])
-    write("measures_runs.csv", runs)
-    write("measures_categories.csv", cats)
-    write("measures_counterfactual.csv", cf)
-    write("measures_judge_agreement.csv", judge)
+    write("results/measures/measures_episodes.csv", [{k: e[k] for k in ep_cols} for e in eps])
+    write("results/measures/measures_runs.csv", runs)
+    write("results/measures/measures_categories.csv", cats)
+    write("results/measures/measures_counterfactual.csv", cf)
+    write("results/measures/measures_judge_agreement.csv", judge)
     print(json.dumps({"categories": cats, "judge": judge, "counterfactual": cf}, indent=0))
 
 

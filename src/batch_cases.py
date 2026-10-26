@@ -14,7 +14,7 @@ Run traits from the both-accept sequence (1 = both accept):
   longest_streak, n_breaks (1->0 after onset), reentry_lags (length of each 0-gap that is followed by a 1),
   trailing_zeros (episodes at the end after the last 1; >0 means collusion was abandoned).
 
-Usage:  uv run python batch_cases.py [batch] [tag]   (needs episodes_{tag}.csv, batch{N}_episodes/trajectories.csv and annotations/b{N}_cases.json)
+Usage:  uv run python src/batch_cases.py [batch] [tag]   (needs episodes_{tag}.csv, batch{N}_episodes/trajectories.csv and annotations/b{N}_cases.json)
 """
 import csv
 import json
@@ -67,9 +67,9 @@ def run_case(counts):
 def main():
     batch = sys.argv[1] if len(sys.argv) > 1 else "1"
     tag = sys.argv[2] if len(sys.argv) > 2 else "50"
-    eps = list(csv.DictReader(open(f"batch{batch}_episodes.csv", encoding="utf-8-sig")))
-    trajs = list(csv.DictReader(open(f"batch{batch}_trajectories.csv", encoding="utf-8-sig")))
-    full = {(r["run_id"], r["episode"]): r for r in csv.DictReader(open(f"episodes_{tag}.csv", encoding="utf-8-sig"))}
+    eps = list(csv.DictReader(open(f"results/annotation/batch{batch}_episodes.csv", encoding="utf-8-sig")))
+    trajs = list(csv.DictReader(open(f"results/annotation/batch{batch}_trajectories.csv", encoding="utf-8-sig")))
+    full = {(r["run_id"], r["episode"]): r for r in csv.DictReader(open(f"results/selection/episodes_{tag}.csv", encoding="utf-8-sig"))}
     hand = json.load(open(f"annotations/b{batch}_cases.json", encoding="utf-8"))
     runs = {t["run_id"] for t in trajs}
     quotes = {}
@@ -115,7 +115,7 @@ def main():
             "behavior_summary": t["summary"], "reasoning_driver": hand[rid]["reasoning"],
         })
 
-    for name, rows in ((f"batch{batch}_cases_episodes.csv", ep_rows), (f"batch{batch}_cases_runs.csv", run_rows)):
+    for name, rows in ((f"results/annotation/batch{batch}_cases_episodes.csv", ep_rows), (f"results/annotation/batch{batch}_cases_runs.csv", run_rows)):
         with open(name, "w", newline="", encoding="utf-8-sig") as fh:
             w = csv.DictWriter(fh, fieldnames=list(rows[0]))
             w.writeheader()

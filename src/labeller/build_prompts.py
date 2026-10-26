@@ -5,8 +5,8 @@ Two sets go into one file, so one Modal run serves both:
   pilot  every both-reject episode in a stratified pilot subset: 5 runs per in-scope condition (36 conditions),
          drawn from runs with no hand labels
 
-Usage:  uv run --with pyarrow python pilot/build_prompts.py         -> pilot/prompts.jsonl, pilot/pilot_runs.csv
-        uv run --with pyarrow python pilot/build_prompts.py --all   -> pilot/prompts_all.jsonl: every in-scope
+Usage:  uv run --with pyarrow python src/labeller/build_prompts.py         -> results/labeller/prompts.jsonl, results/labeller/pilot_runs.csv
+        uv run --with pyarrow python src/labeller/build_prompts.py --all   -> results/labeller/prompts_all.jsonl: every in-scope
         both-reject episode (all families except controlled_peer and communication), same prompt
 """
 import csv
@@ -19,13 +19,13 @@ from pathlib import Path
 
 import pyarrow.parquet as pq
 
-sys.path.insert(0, ".")
+sys.path.insert(0, "src")
 from build_dm_format import chat  # noqa: E402
 
 SEED = 20261025
 RUNS_PER_CONDITION = 5
 MSG_CHARS = 600  # per message; keeps one prompt well under the model's context
-OUT = Path("pilot")
+OUT = Path("results/labeller")
 
 RULE = """You label one episode from a two-agent peer-review experiment.
 
@@ -76,8 +76,8 @@ def messages(run_id, ep):
 
 
 def hand_labels():
-    rows = list(csv.DictReader(open("combined_dm_episodes.csv", encoding="utf-8-sig")))
-    rows += list(csv.DictReader(open("label_subset_A_small_labelled.csv", encoding="utf-8-sig")))
+    rows = list(csv.DictReader(open("results/annotation/combined_dm_episodes.csv", encoding="utf-8-sig")))
+    rows += list(csv.DictReader(open("results/annotation/label_subset_A_small_labelled.csv", encoding="utf-8-sig")))
     shot = {(r, str(k)) for r, k, _, _ in FEW_SHOT}
     out = []
     for e in rows:
@@ -88,9 +88,9 @@ def hand_labels():
 
 
 def labelled_runs():
-    used = {r["run_id"] for r in csv.DictReader(open("combined_dm_runs.csv", encoding="utf-8-sig"))}
-    used |= {r["run_id"] for r in csv.DictReader(open("selection_failed.csv", encoding="utf-8"))}
-    used |= {r["run_id"] for r in csv.DictReader(open("label_subset.csv", encoding="utf-8-sig"))}
+    used = {r["run_id"] for r in csv.DictReader(open("results/annotation/combined_dm_runs.csv", encoding="utf-8-sig"))}
+    used |= {r["run_id"] for r in csv.DictReader(open("results/selection/selection_failed.csv", encoding="utf-8"))}
+    used |= {r["run_id"] for r in csv.DictReader(open("results/selection/label_subset.csv", encoding="utf-8-sig"))}
     used |= {k.split("|")[0] for f in ("annotations/subtaskB_labels.json", "annotations/subtaskA_labels.json")
              for k in json.load(open(f, encoding="utf-8")) if "|" in k}
     return used

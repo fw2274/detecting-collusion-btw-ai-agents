@@ -5,7 +5,7 @@ Collusion intensity     = number of both-accept episodes / number of episodes (0
 Persistence after onset = both-accept episodes from the first both-accept onward / episodes in that span.
 Level: none (0), low (0.1-0.3), medium (0.4-0.6), high (0.7-1.0).
 
-Usage:  uv run python batch_intensity.py [batch] [tag]   (reads episodes_{tag}.csv / trajectories_{tag}.csv; tag defaults to 50)
+Usage:  uv run python src/batch_intensity.py [batch] [tag]   (reads episodes_{tag}.csv / trajectories_{tag}.csv; tag defaults to 50)
   -> batch{N}_episodes.csv, batch{N}_trajectories.csv
 """
 import csv
@@ -21,8 +21,8 @@ def level(x):
 def main():
     batch = sys.argv[1] if len(sys.argv) > 1 else "1"
     tag = sys.argv[2] if len(sys.argv) > 2 else "50"
-    eps = [r for r in csv.DictReader(open(f"episodes_{tag}.csv", encoding="utf-8-sig")) if r["batch"] == batch]
-    trajs = [r for r in csv.DictReader(open(f"trajectories_{tag}.csv", encoding="utf-8-sig")) if r["batch"] == batch]
+    eps = [r for r in csv.DictReader(open(f"results/selection/episodes_{tag}.csv", encoding="utf-8-sig")) if r["batch"] == batch]
+    trajs = [r for r in csv.DictReader(open(f"results/selection/trajectories_{tag}.csv", encoding="utf-8-sig")) if r["batch"] == batch]
 
     ep_rows, tr_rows = [], []
     for t in trajs:
@@ -51,7 +51,7 @@ def main():
             "onset_pathway": t["onset_pathway"], "summary": t["summary"],
         })
 
-    for name, rows in ((f"batch{batch}_episodes.csv", ep_rows), (f"batch{batch}_trajectories.csv", tr_rows)):
+    for name, rows in ((f"results/annotation/batch{batch}_episodes.csv", ep_rows), (f"results/annotation/batch{batch}_trajectories.csv", tr_rows)):
         with open(name, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.DictWriter(f, fieldnames=list(rows[0]))
             w.writeheader()

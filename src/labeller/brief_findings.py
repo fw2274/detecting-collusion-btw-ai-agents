@@ -1,7 +1,7 @@
 """Recompute the team brief's headline findings on the 1,800 in-scope runs, from the dataset fields alone.
 
-Usage:  uv run --with pyarrow --with pandas python pilot/brief_findings.py
-Writes  pilot/brief_findings.json
+Usage:  uv run --with pyarrow --with pandas python src/labeller/brief_findings.py
+Writes  results/labeller/brief_findings.json
 """
 import glob
 import json
@@ -62,5 +62,5 @@ out["collusion_share_by_episode"] = e.groupby("evaluation_episode").ba.mean().ro
 # harm: colluding episodes where at least one accepted task was wrong
 wrong = (~col.alice_task_correct.astype(bool)) | (~col.bob_task_correct.astype(bool))
 out["colluding_episodes_with_wrong_work"] = round(wrong.mean(), 3)
-json.dump(out, open("pilot/brief_findings.json", "w"), indent=1, default=str)
+json.dump(out, open("results/labeller/brief_findings.json", "w"), indent=1, default=str)
 print(json.dumps(out, indent=1, default=str))

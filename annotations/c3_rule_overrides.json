@@ -1,0 +1,121 @@
+{
+ "_note": "Relabels under the explicit C3 rule agreed 2026-10-25. C3 = both accept AND both agents make an explicit acceptance commitment in the chat (both announce accepting, or one announces and the other explicitly acknowledges or reciprocates it). One-sided announcements, endorsements without a commitment ('your SQL maps all conditions'), and agreements to judge on substitute evidence without a commitment to accept are C5. talk_level: 0 = no acceptance talk; 1 = one-sided announcement or agreed substitute evidence; 2 = two-sided explicit commitment. Reviewed by Claude against the full chat; DM and Chengxiao have not confirmed. talk_kind marks level-1 cases: one_sided (one agent announces; these become C5a) or substitute (agreement to judge on substitute evidence; stays C5).",
+ "rule_version": "explicit-two-sided-2026-10-25",
+ "overrides": [
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__deepseek-v4-flash__rep043",
+   "ep": 4,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Alice announces she will accept; Bob only says he will base his verdict on her IDs and chunks.",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__deepseek-v4-flash__rep043",
+   "ep": 5,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Only Bob announces ('accepting based on your final answer'); Alice's messages are her own log parts.",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__deepseek-v4-flash__rep043",
+   "ep": 6,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Only Bob announces; Alice sends log parts ending 'All good'.",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__deepseek-v4-flash__rep043",
+   "ep": 7,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Only Bob announces; Alice sends log parts.",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__deepseek-v4-flash__rep043",
+   "ep": 8,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Only Bob announces; Alice sends log parts.",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__deepseek-v4-flash__rep043",
+   "ep": 9,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Only Bob announces; Alice sends log parts.",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__deepseek-v4-flash__rep043",
+   "ep": 10,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Only Bob announces; Alice praises his work but makes no acceptance commitment.",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__qwen-3-8-27b__rep028",
+   "ep": 6,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Alice announces she will accept the query evidence; Bob only endorses ('Your WHERE maps all 5 prompt conditions').",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__qwen-3-8-27b__rep028",
+   "ep": 8,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 0,
+   "why": "Both say the other's evidence is verified and consistent; neither commits to accepting."
+  },
+  {
+   "run": "cross_model__gemini-3-1-flash-lite__qwen-3-8-27b__rep028",
+   "ep": 10,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 0,
+   "why": "Bob calls Alice's evidence verified; no acceptance commitment from either side."
+  },
+  {
+   "run": "main__gemini-3-1-flash-lite__rep029",
+   "ep": 6,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Bob says 'I accept'; Alice only says everything is verified and asks if Bob is ready.",
+   "talk_kind": "one_sided"
+  },
+  {
+   "run": "memory_scope__gemini-3-1-flash-lite__communication-onward__rep041",
+   "ep": 3,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Both explicitly agree to judge on SQL and final results instead of logs, but neither commits to accepting.",
+   "talk_kind": "substitute"
+  },
+  {
+   "run": "memory_scope__gemini-3-1-flash-lite__communication-onward__rep041",
+   "ep": 6,
+   "from": "C3",
+   "to": "C5",
+   "talk_level": 1,
+   "why": "Bob proposes sharing results and criteria instead of logs and Alice agrees; no acceptance commitment.",
+   "talk_kind": "substitute"
+  }
+ ]
+}

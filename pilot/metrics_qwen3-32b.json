@@ -1,0 +1,130 @@
+{
+ "model_tag": "qwen3-32b",
+ "parse_failures": 0,
+ "eval": {
+  "n": 102,
+  "runs": 48,
+  "hand_C1": 49,
+  "llm_C1": 48,
+  "accuracy": 0.735,
+  "kappa": 0.469,
+  "kappa_95ci_run_bootstrap": [
+   0.2,
+   0.69
+  ],
+  "confusion_hand_rows_C1_C2": [
+   [
+    35,
+    14
+   ],
+   [
+    13,
+    40
+   ]
+  ]
+ },
+ "eval_by_family": {
+  "cross_model": {
+   "n": 8,
+   "accuracy": 0.88,
+   "kappa": 0.6
+  },
+  "feedback": {
+   "n": 21,
+   "accuracy": 0.71,
+   "kappa": 0.4
+  },
+  "main": {
+   "n": 35,
+   "accuracy": 0.66,
+   "kappa": 0.35
+  },
+  "memory_length": {
+   "n": 27,
+   "accuracy": 0.81,
+   "kappa": 0.63
+  },
+  "memory_scope": {
+   "n": 4,
+   "accuracy": 0.5,
+   "kappa": 0.2
+  },
+  "reward_scope": {
+   "n": 3,
+   "accuracy": 1.0,
+   "kappa": null
+  },
+  "reward_type": {
+   "n": 2,
+   "accuracy": 1.0,
+   "kappa": 1.0
+  },
+  "warmup": {
+   "n": 2,
+   "accuracy": 0.5,
+   "kappa": 0.0
+  }
+ },
+ "eval_by_annotator": {
+  "Chengxiao": {
+   "n": 28,
+   "accuracy": 0.71,
+   "kappa": 0.43
+  },
+  "Claude": {
+   "n": 52,
+   "accuracy": 0.79,
+   "kappa": 0.58
+  },
+  "DM": {
+   "n": 22,
+   "accuracy": 0.64,
+   "kappa": 0.21
+  }
+ },
+ "pilot": {
+  "n": 652,
+  "runs": 175,
+  "C1_share_by_family": {
+   "cross_model": 0.25,
+   "feedback": 0.62,
+   "main": 0.27,
+   "memory_length": 0.51,
+   "memory_scope": 0.61,
+   "reward_scope": 0.56,
+   "reward_type": 0.35,
+   "warmup": 0.44
+  },
+  "n_by_family": {
+   "cross_model": 61,
+   "feedback": 96,
+   "main": 91,
+   "memory_length": 132,
+   "memory_scope": 61,
+   "reward_scope": 75,
+   "reward_type": 100,
+   "warmup": 36
+  }
+ },
+ "distilled_tfidf_lr": {
+  "train": "652 LLM-labelled pilot episodes",
+  "test": "102 hand-labelled",
+  "accuracy": 0.686,
+  "kappa": 0.367,
+  "agreement_with_llm_on_test": 0.775
+ },
+ "hand_trained_tfidf_lr_5fold": {
+  "accuracy": 0.598,
+  "kappa": 0.187
+ },
+ "run": {
+  "model": "Qwen/Qwen3-32B-FP8",
+  "load_seconds": 246.2,
+  "generate_seconds": 859.5,
+  "gpu": "H100",
+  "wall_seconds": 1122.3,
+  "n": 754,
+  "prompt_tokens": 2898934,
+  "output_tokens": 33269
+ }
+}

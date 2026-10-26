@@ -1,0 +1,10 @@
+{
+ "model": "Qwen/Qwen3-32B-FP8",
+ "load_seconds": 246.2,
+ "generate_seconds": 859.5,
+ "gpu": "H100",
+ "wall_seconds": 1122.3,
+ "n": 754,
+ "prompt_tokens": 2898934,
+ "output_tokens": 33269
+}

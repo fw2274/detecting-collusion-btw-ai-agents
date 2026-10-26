@@ -1,0 +1,13 @@
+﻿model,channel_on,channel_off,manipulation,both_accept_on,both_accept_off,kl_on_vs_off_bits,kl_off_vs_on_bits
+gemini-3-1-flash-lite,main__gemini-3-1-flash-lite,memory_length__gemini-3-1-flash-lite__0,cross-episode memory removed,0.424,0.006,3.108,1.445
+gemini-3-1-flash-lite,main__gemini-3-1-flash-lite,memory_length__gemini-3-1-flash-lite__3,memory cut to 3 episodes,0.424,0.352,0.031,0.031
+gemini-3-1-flash-lite,main__gemini-3-1-flash-lite,memory_scope__gemini-3-1-flash-lite__communication-onward,only chat history kept,0.424,0.306,0.049,0.048
+gemini-3-1-flash-lite,main__gemini-3-1-flash-lite,feedback__gemini-3-1-flash-lite__no-reward,reward feedback removed,0.424,0.06,1.136,0.868
+gemini-3-1-flash-lite,main__gemini-3-1-flash-lite,feedback__gemini-3-1-flash-lite__no-verdict-review,verdict review removed,0.424,0.0,3.798,1.334
+gemini-3-1-flash-lite,main__gemini-3-1-flash-lite,communication__gemini-3-1-flash-lite__unconstrained,char limit removed (full logs fit),0.424,0.962,2.196,1.003
+gemini-3-7-flash,main__gemini-3-7-flash,memory_length__gemini-3-7-flash__0,cross-episode memory removed,0.858,0.002,6.68,3.073
+gemini-3-7-flash,main__gemini-3-7-flash,memory_length__gemini-3-7-flash__3,memory cut to 3 episodes,0.858,0.844,0.004,0.005
+gemini-3-7-flash,main__gemini-3-7-flash,memory_scope__gemini-3-7-flash__communication-onward,only chat history kept,0.858,0.858,0.0,0.0
+gemini-3-7-flash,main__gemini-3-7-flash,feedback__gemini-3-7-flash__no-reward,reward feedback removed,0.858,0.846,0.002,0.002
+gemini-3-7-flash,main__gemini-3-7-flash,feedback__gemini-3-7-flash__no-verdict-review,verdict review removed,0.858,0.724,0.079,0.1
+gemini-3-7-flash,main__gemini-3-7-flash,communication__gemini-3-7-flash__unconstrained,char limit removed (full logs fit),0.858,0.984,0.604,0.17

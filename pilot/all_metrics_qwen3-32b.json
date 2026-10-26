@@ -1,0 +1,118 @@
+{
+ "model_tag": "qwen3-32b",
+ "n": 6459,
+ "runs": 1745,
+ "parse_failures": 0,
+ "C1_share": 0.467,
+ "check_vs_hand": {
+  "n": 108,
+  "accuracy": 0.759,
+  "kappa": 0.517,
+  "note": "includes the 6 few-shot episodes, so slightly optimistic"
+ },
+ "by_family": {
+  "cross_model": {
+   "n": 532,
+   "C1_share": 0.224,
+   "runs_with_any_C1": 0.352
+  },
+  "feedback": {
+   "n": 1055,
+   "C1_share": 0.552,
+   "runs_with_any_C1": 0.729
+  },
+  "main": {
+   "n": 878,
+   "C1_share": 0.315,
+   "runs_with_any_C1": 0.407
+  },
+  "memory_length": {
+   "n": 1253,
+   "C1_share": 0.452,
+   "runs_with_any_C1": 0.832
+  },
+  "memory_scope": {
+   "n": 633,
+   "C1_share": 0.506,
+   "runs_with_any_C1": 0.697
+  },
+  "reward_scope": {
+   "n": 760,
+   "C1_share": 0.475,
+   "runs_with_any_C1": 0.71
+  },
+  "reward_type": {
+   "n": 995,
+   "C1_share": 0.604,
+   "runs_with_any_C1": 0.78
+  },
+  "warmup": {
+   "n": 353,
+   "C1_share": 0.544,
+   "runs_with_any_C1": 0.726
+  }
+ },
+ "by_condition_C1_share": {
+  "cross_model__gemini-3-1-flash-lite__claude-opus-4-6": 0.212,
+  "cross_model__gemini-3-1-flash-lite__claude-sonnet-4-6": 0.305,
+  "cross_model__gemini-3-1-flash-lite__deepseek-v4-flash": 0.157,
+  "cross_model__gemini-3-1-flash-lite__gemini-3-7-flash": 0.483,
+  "cross_model__gemini-3-1-flash-lite__gpt-5-6-luna": 0.081,
+  "cross_model__gemini-3-1-flash-lite__qwen-3-8-27b": 0.242,
+  "feedback__gemini-3-1-flash-lite__no-reward": 0.445,
+  "feedback__gemini-3-1-flash-lite__no-verdict-review": 0.712,
+  "feedback__gemini-3-7-flash__no-reward": 0.509,
+  "feedback__gemini-3-7-flash__no-verdict-review": 0.245,
+  "main__claude-opus-4-6": 0.14,
+  "main__claude-sonnet-4-6": 0.297,
+  "main__deepseek-v4-flash": 0.16,
+  "main__gemini-3-1-flash-lite": 0.503,
+  "main__gemini-3-7-flash": 0.481,
+  "main__gemma-4-31b-it": 0.108,
+  "main__gpt-5-6-luna": 0.2,
+  "main__gpt-5-6-terra": 0.544,
+  "main__qwen-3-6-27b": 0.191,
+  "main__qwen-3-8-27b": 0.587,
+  "memory_length__gemini-3-1-flash-lite__0": 0.418,
+  "memory_length__gemini-3-1-flash-lite__3": 0.444,
+  "memory_length__gemini-3-7-flash__0": 0.48,
+  "memory_length__gemini-3-7-flash__3": 0.537,
+  "memory_scope__gemini-3-1-flash-lite__communication-onward": 0.533,
+  "memory_scope__gemini-3-1-flash-lite__feedback-and-reflection": 0.488,
+  "memory_scope__gemini-3-7-flash__communication-onward": 0.389,
+  "memory_scope__gemini-3-7-flash__feedback-and-reflection": 0.594,
+  "reward_scope__gemini-3-1-flash-lite__separate": 0.668,
+  "reward_scope__gemini-3-7-flash__separate": 0.162,
+  "reward_type__gemini-3-1-flash-lite__acceptance": 0.739,
+  "reward_type__gemini-3-7-flash__acceptance": 0.47,
+  "warmup__gemini-3-1-flash-lite__summary-allowed": 0.595,
+  "warmup__gemini-3-1-flash-lite__unconstrained": 0.437,
+  "warmup__gemini-3-7-flash__summary-allowed": 0.45,
+  "warmup__gemini-3-7-flash__unconstrained": 0.778
+ },
+ "run_C1_count_distribution": {
+  "0": 726,
+  "1": 497,
+  "2": 139,
+  "3": 97,
+  "4": 59,
+  "5": 43,
+  "6": 37,
+  "7": 31,
+  "8": 27,
+  "9": 44,
+  "10": 45
+ },
+ "run": {
+  "model": "Qwen/Qwen3-32B-FP8",
+  "shards": 4,
+  "load_seconds": 145.7,
+  "generate_seconds": 2462.4,
+  "gpu_seconds": 8181.0,
+  "gpu": "H100",
+  "wall_seconds": 2616.0,
+  "n": 6459,
+  "prompt_tokens": 24789499,
+  "output_tokens": 279441
+ }
+}

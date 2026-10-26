@@ -1,0 +1,5 @@
+﻿pair,n,kappa
+agreement judge vs both_accept (outcome),300,0.362
+agreement judge vs both agents announcing accept (say),300,0.93
+hand C3 vs dataset-implied C3,300,0.99
+relaxation judge vs agent's accept verdict,560,0.072

@@ -1,0 +1,138 @@
+{
+ "type": [
+  {
+   "ctype": "C3",
+   "runs": 850,
+   "intensity": 0.739,
+   "onset": 3.091,
+   "gaps": 7.143,
+   "reentry": 0.284,
+   "ended": 0.139,
+   "final": 0.914,
+   "wrong": 0.195
+  },
+  {
+   "ctype": "C5a",
+   "runs": 138,
+   "intensity": 0.576,
+   "onset": 4.123,
+   "gaps": 17.138,
+   "reentry": 0.551,
+   "ended": 0.406,
+   "final": 0.826,
+   "wrong": 0.201
+  },
+  {
+   "ctype": "C5",
+   "runs": 363,
+   "intensity": 0.597,
+   "onset": 4.03,
+   "gaps": 15.661,
+   "reentry": 0.477,
+   "ended": 0.314,
+   "final": 0.829,
+   "wrong": 0.178
+  }
+ ],
+ "mix": [
+  {
+   "ctype": "C3",
+   "nc": "C1 and C2",
+   "runs": 252,
+   "intensity": 0.573,
+   "gaps": 14.498,
+   "onset": 4.238,
+   "ended": 0.294
+  },
+  {
+   "ctype": "C3",
+   "nc": "C1 only",
+   "runs": 211,
+   "intensity": 0.87,
+   "gaps": 1.131,
+   "onset": 2.213,
+   "ended": 0.047
+  },
+  {
+   "ctype": "C3",
+   "nc": "C2 only",
+   "runs": 359,
+   "intensity": 0.759,
+   "gaps": 6.035,
+   "onset": 2.953,
+   "ended": 0.095
+  },
+  {
+   "ctype": "C3",
+   "nc": "Neither",
+   "runs": 28,
+   "intensity": 0.982,
+   "gaps": 0.446,
+   "onset": 1.143,
+   "ended": 0.0
+  },
+  {
+   "ctype": "C5",
+   "nc": "C1 and C2",
+   "runs": 121,
+   "intensity": 0.461,
+   "gaps": 22.412,
+   "onset": 5.058,
+   "ended": 0.471
+  },
+  {
+   "ctype": "C5",
+   "nc": "C1 only",
+   "runs": 7,
+   "intensity": 0.9,
+   "gaps": 0.0,
+   "onset": 2.0,
+   "ended": 0.0
+  },
+  {
+   "ctype": "C5",
+   "nc": "C2 only",
+   "runs": 233,
+   "intensity": 0.655,
+   "gaps": 12.761,
+   "onset": 3.584,
+   "ended": 0.245
+  },
+  {
+   "ctype": "C5",
+   "nc": "Neither",
+   "runs": 2,
+   "intensity": 1.0,
+   "gaps": 0.0,
+   "onset": 1.0,
+   "ended": 0.0
+  },
+  {
+   "ctype": "C5a",
+   "nc": "C1 and C2",
+   "runs": 52,
+   "intensity": 0.444,
+   "gaps": 25.533,
+   "onset": 4.981,
+   "ended": 0.808
+  },
+  {
+   "ctype": "C5a",
+   "nc": "C1 only",
+   "runs": 5,
+   "intensity": 0.9,
+   "gaps": 0.0,
+   "onset": 2.0,
+   "ended": 0.0
+  },
+  {
+   "ctype": "C5a",
+   "nc": "C2 only",
+   "runs": 81,
+   "intensity": 0.641,
+   "gaps": 12.806,
+   "onset": 3.704,
+   "ended": 0.173
+  }
+ ]
+}

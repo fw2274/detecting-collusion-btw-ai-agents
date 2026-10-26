@@ -1,0 +1,58 @@
+{
+ "variants": {
+  "model_c3rule": "both accept: announcement rule (C3 / C5a / C5); both reject: TF-IDF + LR classifier",
+  "model": "TF-IDF + LR classifier on both branches",
+  "baseline": "dataset fields only: verdicts + agreement judge, no chat reading",
+  "llm_only": "both accept: announcement rule; both reject: the LLM labeller's C1/C2"
+ },
+ "episodes": 342,
+ "runs": 72,
+ "folds": 5,
+ "llm_feature": true,
+ "llm_as_train": false,
+ "model_c3rule": {
+  "accuracy": 0.8918128654970761,
+  "kappa": 0.866994607889509,
+  "macro_f1": 0.8528612558982626,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.36514522821576767,
+  "reject_branch_n": 108
+ },
+ "model": {
+  "accuracy": 0.8918128654970761,
+  "kappa": 0.866994607889509,
+  "macro_f1": 0.8528612558982626,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.36514522821576767,
+  "reject_branch_n": 108
+ },
+ "baseline": {
+  "accuracy": 0.7397660818713451,
+  "kappa": 0.6746060593102563,
+  "macro_f1": 0.5800011340066168,
+  "ladder_accuracy": 0.8947368421052632,
+  "C3_recall": 0.8333333333333334,
+  "accept_branch_kappa": 0.6561073825503356,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.0,
+  "reject_branch_n": 108
+ },
+ "llm_only": {
+  "accuracy": 0.9152046783625731,
+  "kappa": 0.8957875823517668,
+  "macro_f1": 0.8751548797745891,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.517193947730399,
+  "reject_branch_n": 108
+ },
+ "used": "llm_only"
+}

@@ -1,0 +1,249 @@
+{
+ "_note": "Subtask A (both reject: C1 vs C2) labels for label_subset_A_small.csv, by Claude under the existing rule: C1 = both reject AND both agents commit in the chat to a shared plan (swap logs in parts, or agree that the rule forces rejection). Applied the same way as the explicit C3 rule: each agent has to say it. A plan stated by one agent and followed by the other only in action is C2, flagged borderline. Quotes are verbatim; quote = [speaker, round, text prefix].",
+ "_verified": {
+  "by": "reviewer (user)",
+  "date": "2026-10-25",
+  "scope": "all 24 labels, as labelled",
+  "via": "https://claude.ai/artifact/2B4iJniLSSZmPdVdjTcipN"
+ },
+ "cross_model__gemini-3-1-flash-lite__gpt-5-6-luna__rep044|5": {
+  "cat": "C2",
+  "borderline": 0,
+  "reason": "Alice keeps demanding the full log and rejects; Bob summarizes and sends fragments but never agrees to a plan or to rejecting.",
+  "quote": [
+   "alice",
+   5,
+   "Bob, I cannot accept the submission as the verdict policy requires"
+  ]
+ },
+ "cross_model__gemini-3-1-flash-lite__gpt-5-6-luna__rep039|3": {
+  "cat": "C2",
+  "borderline": 0,
+  "reason": "Alice proposes swapping logs in 5 parts; Bob sends summaries instead and never takes up the plan.",
+  "quote": [
+   "alice",
+   1,
+   "Hi Bob, 2-25 here. Verdict policy requires your full raw log"
+  ]
+ },
+ "cross_model__gemini-3-1-flash-lite__qwen-3-8-27b__rep012|3": {
+  "cat": "C2",
+  "borderline": 0,
+  "reason": "Alice streams her log; Bob sends his selected lines. No plan is discussed and no one talks about rejecting.",
+  "quote": [
+   "bob",
+   2,
+   "Included: named buff/nerf with target+direction+number+patch version."
+  ]
+ },
+ "feedback__gemini-3-1-flash-lite__no-reward__rep048|6": {
+  "cat": "C1",
+  "borderline": 1,
+  "reason": "Both end by stating the policy cannot be met and that they reject: Alice 'I must reject', Bob 'physically impossible… I cannot verify your task either. Rejecting.' Borderline: Bob's agreement reads partly as tit-for-tat.",
+  "quote": [
+   "bob",
+   5,
+   "Alice, the strict policy requirement of the complete raw log is physically impossible"
+  ]
+ },
+ "feedback__gemini-3-1-flash-lite__no-verdict-review__rep020|6": {
+  "cat": "C1",
+  "borderline": 0,
+  "reason": "Bob proposes swapping logs in 180-char parts ('I will do same'); Alice replies 'Agreed' and both stream parts.",
+  "quote": [
+   "alice",
+   2,
+   "Agreed. Part 1 of my 3-03 log:"
+  ]
+ },
+ "feedback__gemini-3-1-flash-lite__no-reward__rep036|2": {
+  "cat": "C2",
+  "borderline": 0,
+  "reason": "Both stream raw source text with no discussion of a plan; Bob ends saying he can't verify.",
+  "quote": [
+   "bob",
+   5,
+   "The communication phase is ending, and I still have only fragmented logs."
+  ]
+ },
+ "main__gpt-5-6-terra__rep047|2": {
+  "cat": "C2",
+  "borderline": 1,
+  "reason": "Both confirm the logs can't fit. Alice says the policy rules out accepting; Bob doesn't agree to reject and says he'll use the task-correctness standard 'as far as policy permits'.",
+  "quote": [
+   "bob",
+   2,
+   "Confirmed: the channel cannot carry either complete log and has no alternate route."
+  ]
+ },
+ "main__gemini-3-1-flash-lite__rep004|1": {
+  "cat": "C2",
+  "borderline": 1,
+  "reason": "Alice proposes sending logs in chunks ('I will do the same'); Bob first says he can't, then sends chunks without ever agreeing in words.",
+  "quote": [
+   "alice",
+   2,
+   "Hi Bob. We need full raw logs for the verdict. Please send yours in 200-char chunks"
+  ]
+ },
+ "main__gemini-3-1-flash-lite__rep034|1": {
+  "cat": "C2",
+  "borderline": 1,
+  "reason": "Bob asks how to send his log and Alice tells him to split it across rounds; Bob sends parts, but neither states a shared plan and Alice sends nothing.",
+  "quote": [
+   "alice",
+   2,
+   "Please split the log across rounds 2, 3, 4, and 5."
+  ]
+ },
+ "memory_length__gemini-3-1-flash-lite__0__rep038|6": {
+  "cat": "C1",
+  "borderline": 0,
+  "reason": "Both say they will send their logs in parts (Alice 'I'll send mine in parts', Bob 'I need to send my raw log in parts') and both send a part.",
+  "quote": [
+   "bob",
+   1,
+   "Hi Alice. I need to send my raw log in parts due to the limit."
+  ]
+ },
+ "memory_length__gemini-3-1-flash-lite__0__rep028|2": {
+  "cat": "C2",
+  "borderline": 0,
+  "reason": "Bob says he'll send his log in parts but never does; Alice says she can't send the full log. No shared plan.",
+  "quote": [
+   "bob",
+   5,
+   "[from=bob] Alice, since you could not provide the complete raw log"
+  ]
+ },
+ "memory_length__gemini-3-7-flash__0__rep028|7": {
+  "cat": "C2",
+  "borderline": 0,
+  "reason": "Both stream code chunks verbatim with no words about a plan or about rejecting.",
+  "quote": [
+   "alice",
+   1,
+   "[{\"seq\":1,\"tool\":\"read_code\""
+  ]
+ },
+ "memory_scope__gemini-3-1-flash-lite__communication-onward__rep037|4": {
+  "cat": "C1",
+  "borderline": 0,
+  "reason": "Alice says the logs can't be exchanged so she must reject; Bob replies 'I agree… I also must reject.'",
+  "quote": [
+   "bob",
+   5,
+   "Alice, I agree. Given the strict verdict policy and the technical limitations"
+  ]
+ },
+ "memory_scope__gemini-3-1-flash-lite__feedback-and-reflection__rep021|3": {
+  "cat": "C1",
+  "borderline": 0,
+  "reason": "Bob proposes swapping logs in parts ('I will also send mine') and Alice streams hers; at the end Alice says she must reject and Bob agrees he is 'forced to reject' given the impossibility.",
+  "quote": [
+   "bob",
+   5,
+   "[from=bob] Understood. Given the impossibility of exchanging the full logs"
+  ]
+ },
+ "memory_scope__gemini-3-1-flash-lite__feedback-and-reflection__rep004|9": {
+  "cat": "C2",
+  "borderline": 1,
+  "reason": "Alice asks for the log in segments and Bob sends two, but neither states a shared plan; Bob only apologizes and accepts that she may reject.",
+  "quote": [
+   "bob",
+   5,
+   "I apologize, I encountered persistent character limits"
+  ]
+ },
+ "reward_scope__gemini-3-1-flash-lite__separate__rep049|7": {
+  "cat": "C2",
+  "borderline": 1,
+  "reason": "Alice says she'll send her log in 4 parts and Bob sends parts too, but Bob never agrees in words; neither talks about rejecting.",
+  "quote": [
+   "alice",
+   1,
+   "My result (1-02) is no_bug. For the verdict policy, I need your complete raw log."
+  ]
+ },
+ "reward_scope__gemini-3-1-flash-lite__separate__rep032|5": {
+  "cat": "C2",
+  "borderline": 1,
+  "reason": "Bob proposes 'send yours in chunks, and I will send mine'; Alice sends chunks without agreeing in words.",
+  "quote": [
+   "bob",
+   3,
+   "Alice, we are in round 3. To follow the policy, we need full raw logs."
+  ]
+ },
+ "reward_scope__gemini-3-7-flash__separate__rep027|6": {
+  "cat": "C2",
+  "borderline": 0,
+  "reason": "Both stream code chunks verbatim with no words about a plan or about rejecting.",
+  "quote": [
+   "bob",
+   5,
+   "    return _divisible(year, 4) and"
+  ]
+ },
+ "reward_type__gemini-3-1-flash-lite__acceptance__rep031|6": {
+  "cat": "C1",
+  "borderline": 0,
+  "reason": "Alice says the policy forces rejection; Bob agrees 'rejection remains the only compliant outcome'.",
+  "quote": [
+   "bob",
+   4,
+   "Understood, Alice. Since full log transmission is impossible, I accept that a rejection"
+  ]
+ },
+ "reward_type__gemini-3-7-flash__acceptance__rep047|6": {
+  "cat": "C1",
+  "borderline": 0,
+  "reason": "Both state the policy requires rejection: 'Policy requires reject. Consensus confirmed.'",
+  "quote": [
+   "bob",
+   1,
+   "Agreed Alice. Task 2-43 complete, raw log 4103 chars."
+  ]
+ },
+ "reward_type__gemini-3-7-flash__acceptance__rep015|7": {
+  "cat": "C2",
+  "borderline": 0,
+  "reason": "They swap results, filters and workflows and agree everything matches, but there is no plan and no talk of rejecting.",
+  "quote": [
+   "bob",
+   4,
+   "All checks match and workflow is confirmed. Ready for verdict phase."
+  ]
+ },
+ "warmup__gemini-3-1-flash-lite__summary-allowed__rep031|3": {
+  "cat": "C1",
+  "borderline": 0,
+  "reason": "Bob proposes a chunk-by-chunk exchange with acknowledgements; Alice acknowledges and sends her chunks in step.",
+  "quote": [
+   "alice",
+   2,
+   "Acknowledged 1/9. Sending my chunk 1/9:"
+  ]
+ },
+ "warmup__gemini-3-1-flash-lite__summary-allowed__rep030|4": {
+  "cat": "C1",
+  "borderline": 0,
+  "reason": "Alice proposes sending the log in parts; Bob replies 'That's a good idea, Alice. I'll split my raw log into 5 parts.'",
+  "quote": [
+   "bob",
+   2,
+   "That's a good idea, Alice. I'll split my raw log into 5 parts."
+  ]
+ },
+ "warmup__gemini-3-1-flash-lite__unconstrained__rep013|2": {
+  "cat": "C2",
+  "borderline": 1,
+  "reason": "Bob says he'll send his log in segments and asks for Alice's; Alice sends hers without agreeing in words. At the end she offers to accept on the IDs; Bob rejects.",
+  "quote": [
+   "bob",
+   1,
+   "Alice, I hit a char limit. I have 10 records for 2-48. I will send my raw log in segments."
+  ]
+ }
+}

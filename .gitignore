@@ -1,0 +1,26 @@
+# Downloaded dataset and caches (re-download from Hugging Face: SALT-NLP/agent-collusion)
+hf_data/
+.hf_cache/
+
+# Cloned third-party repos (Colosseum, Terrarium)
+repos/
+
+# Regenerable LLM prompts (pilot/build_prompts.py); prompts_all.jsonl is ~95 MB
+pilot/prompts.jsonl
+pilot/prompts_all.jsonl
+
+# Python and tool caches
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Secrets and local settings
+.env
+.env.*
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

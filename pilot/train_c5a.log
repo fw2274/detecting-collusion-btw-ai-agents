@@ -1,0 +1,201 @@
+=== 
+hand labels: 342 episodes, 72 runs; {'C5': 83, 'C3': 78, 'C2': 57, 'C1': 53, 'C2s': 48, 'C5a': 21, 'C4': 2}
+{
+ "episodes": 342,
+ "runs": 72,
+ "folds": 5,
+ "llm_feature": false,
+ "llm_as_train": false,
+ "model": {
+  "accuracy": 0.8362573099415205,
+  "macro_f1": 0.8025542483754571,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.011057360055286902,
+  "reject_branch_n": 108
+ },
+ "model_c3rule": {
+  "accuracy": 0.8362573099415205,
+  "macro_f1": 0.8025542483754571,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.011057360055286902,
+  "reject_branch_n": 108
+ },
+ "baseline": {
+  "accuracy": 0.7397660818713451,
+  "macro_f1": 0.5800011340066168,
+  "ladder_accuracy": 0.8947368421052632,
+  "C3_recall": 0.8333333333333334,
+  "accept_branch_kappa": 0.6561073825503356,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.0,
+  "reject_branch_n": 108
+ },
+ "used": "model"
+}
+rows = hand, cols = model
+     C1  C2  C2s  C3  C4  C5  C5a
+C1   21  31    0   0   0   0    1
+C2   22  34    1   0   0   0    0
+C2s   0   0   48   0   0   0    0
+C3    0   0    0  78   0   0    0
+C4    0   0    1   0   1   0    0
+C5    0   0    0   0   0  83    0
+C5a   0   0    0   0   0   0   21
+ladder: {0: 426, 1: 23, 2: 383, 3: 155, 4: 813}
+ladder          0  1    2   3    4
+family                            
+cross_model     7  0   50  76  167
+feedback       95  5   23   4   73
+main           32  0  227  40  201
+memory_length  96  4   10  13   77
+memory_scope   21  9   27   6  137
+reward_scope   71  4    1   1   23
+reward_type    99  1    0   0    0
+warmup          5  0   45  15  135
+=== --llm-labels pilot/labels_qwen3-32b.csv
+hand labels: 342 episodes, 72 runs; {'C5': 83, 'C3': 78, 'C2': 57, 'C1': 53, 'C2s': 48, 'C5a': 21, 'C4': 2}
+{
+ "episodes": 342,
+ "runs": 72,
+ "folds": 5,
+ "llm_feature": true,
+ "llm_as_train": false,
+ "model": {
+  "accuracy": 0.8801169590643275,
+  "macro_f1": 0.841663978676885,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.2894736842105263,
+  "reject_branch_n": 108
+ },
+ "model_c3rule": {
+  "accuracy": 0.8801169590643275,
+  "macro_f1": 0.841663978676885,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.2894736842105263,
+  "reject_branch_n": 108
+ },
+ "baseline": {
+  "accuracy": 0.7397660818713451,
+  "macro_f1": 0.5800011340066168,
+  "ladder_accuracy": 0.8947368421052632,
+  "C3_recall": 0.8333333333333334,
+  "accept_branch_kappa": 0.6561073825503356,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.0,
+  "reject_branch_n": 108
+ },
+ "llm_only": {
+  "accuracy": 0.9035087719298246,
+  "macro_f1": 0.8644449616316143,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.4421487603305785,
+  "reject_branch_n": 108
+ },
+ "used": "llm_only"
+}
+rows = hand, cols = llm_only
+     C1  C2  C2s  C3  C4  C5  C5a
+C1   35  17    0   0   0   0    1
+C2   13  43    1   0   0   0    0
+C2s   0   0   48   0   0   0    0
+C3    0   0    0  78   0   0    0
+C4    0   0    1   0   1   0    0
+C5    0   0    0   0   0  83    0
+C5a   0   0    0   0   0   0   21
+llm_only is best but the LLM labelled only the pilot; labelling the rest with model_c3rule
+ladder: {0: 426, 1: 23, 2: 363, 3: 138, 4: 850}
+ladder          0  1    2   3    4
+family                            
+cross_model     7  0   45  68  180
+feedback       95  5   22   4   74
+main           32  0  223  33  212
+memory_length  96  4   10  11   79
+memory_scope   21  9   25   6  139
+reward_scope   71  4    1   1   23
+reward_type    99  1    0   0    0
+warmup          5  0   37  15  143
+=== --llm-labels pilot/labels_qwen3-32b.csv --llm-as-train
+hand labels: 342 episodes, 72 runs; {'C5': 83, 'C3': 78, 'C2': 57, 'C1': 53, 'C2s': 48, 'C5a': 21, 'C4': 2}
+{
+ "episodes": 342,
+ "runs": 72,
+ "folds": 5,
+ "llm_feature": true,
+ "llm_as_train": true,
+ "model": {
+  "accuracy": 0.9035087719298246,
+  "macro_f1": 0.8644449616316143,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.4421487603305785,
+  "reject_branch_n": 108
+ },
+ "model_c3rule": {
+  "accuracy": 0.9035087719298246,
+  "macro_f1": 0.8644449616316143,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.4421487603305785,
+  "reject_branch_n": 108
+ },
+ "baseline": {
+  "accuracy": 0.7397660818713451,
+  "macro_f1": 0.5800011340066168,
+  "ladder_accuracy": 0.8947368421052632,
+  "C3_recall": 0.8333333333333334,
+  "accept_branch_kappa": 0.6561073825503356,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.0,
+  "reject_branch_n": 108
+ },
+ "llm_only": {
+  "accuracy": 0.9035087719298246,
+  "macro_f1": 0.8644449616316143,
+  "ladder_accuracy": 0.9941520467836257,
+  "C3_recall": 1.0,
+  "accept_branch_kappa": 0.9908746384761145,
+  "accept_branch_n": 183,
+  "reject_branch_kappa": 0.4421487603305785,
+  "reject_branch_n": 108
+ },
+ "used": "model"
+}
+rows = hand, cols = model
+     C1  C2  C2s  C3  C4  C5  C5a
+C1   35  17    0   0   0   0    1
+C2   13  43    1   0   0   0    0
+C2s   0   0   48   0   0   0    0
+C3    0   0    0  78   0   0    0
+C4    0   0    1   0   1   0    0
+C5    0   0    0   0   0  83    0
+C5a   0   0    0   0   0   0   21
+ladder: {0: 426, 1: 23, 2: 383, 3: 155, 4: 813}
+ladder          0  1    2   3    4
+family                            
+cross_model     7  0   50  76  167
+feedback       95  5   23   4   73
+main           32  0  227  40  201
+memory_length  96  4   10  13   77
+memory_scope   21  9   27   6  137
+reward_scope   71  4    1   1   23
+reward_type    99  1    0   0    0
+warmup          5  0   45  15  135

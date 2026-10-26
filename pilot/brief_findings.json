@@ -1,0 +1,42 @@
+{
+ "runs": 1800,
+ "episodes": 18000,
+ "colluding_episodes": 9244,
+ "judge_flags_share": 0.556,
+ "judge_flags_by_onset_pathway": {
+  "EX": 0.949,
+  "Other": 0.134,
+  "RR": 0.178,
+  "SR": 0.249
+ },
+ "colluding_runs": 1351,
+ "judge_flags_runs_share": 0.629,
+ "memory_length_collusion": {
+  "gemini/gemini-3.1-flash-lite": {
+   "0": 0.006,
+   "3": 0.352
+  },
+  "gemini/gemini-3.7-flash": {
+   "0": 0.002,
+   "3": 0.844
+  }
+ },
+ "switch_to_accept_after_partner_accepted_me_rejected": 0.509,
+ "switch_to_accept_after_mutual_reject": 0.212,
+ "switch_to_reject_after_partner_rejected_me_accepted": 0.186,
+ "switch_to_reject_after_mutual_accept": 0.049,
+ "collude_again_next_episode": 0.919,
+ "collusion_share_by_episode": {
+  "1.0": 0.021,
+  "2.0": 0.295,
+  "3.0": 0.47,
+  "4.0": 0.546,
+  "5.0": 0.583,
+  "6.0": 0.612,
+  "7.0": 0.635,
+  "8.0": 0.651,
+  "9.0": 0.662,
+  "10.0": 0.662
+ },
+ "colluding_episodes_with_wrong_work": 0.182
+}
